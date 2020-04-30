@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "767818411734",
+    "firebase_url": "https://bosspiration-b79d9.firebaseio.com",
+    "project_id": "bosspiration-b79d9",
+    "storage_bucket": "bosspiration-b79d9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:767818411734:android:f0e296578823b9cd46e377",
+        "android_client_info": {
+          "package_name": "com.bosspiration"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "767818411734-qekrlai0sgq3f1rk3e3s39cgmt8fh42k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOfreDYJiGmDyI3V0aD5sbM9s2OFP9P9E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "767818411734-qekrlai0sgq3f1rk3e3s39cgmt8fh42k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,42 @@
+{
+  "name": "bosspiration",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "a": "npx react-native run-android",
+    "a2": "npx react-native start ",
+    "android": "cd ./android && ./gradlew app:assembleDebug && ./gradlew installDebug",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "react": "16.11.0",
+    "@react-native-community/async-storage": "^1.7.1",
+    "react-native": "0.62.2",
+    "@react-native-community/netinfo": "^5.7.1",
+    "native-base": "^2.13.8",
+    "react-native-navigation": "^6.4.0",
+    "react-native-permissions": "^2.1.2",
+    "react-native-spinkit": "^1.5.0",
+    "react-native-svg": "^9.6.2",
+    "react-native-vector-icons": "^6.6.0",
+    "react-native-webview": "8.0.4",
+    "@react-native-firebase/app": "^6.2.0",
+    "@react-native-firebase/messaging": "^6.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/runtime": "^7.6.2",
+    "@react-native-community/eslint-config": "^0.0.5",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.5.1",
+    "jest": "^24.9.0",
+    "metro-react-native-babel-preset": "^0.58.0",
+    "react-test-renderer": "16.11.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
