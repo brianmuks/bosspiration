@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {
   View, Modal, BackHandler,
   Alert,
-  ScrollView
+  ScrollView, Dimensions,
 } from 'react-native';
 import { WebView } from 'react-native-webview';
 
@@ -12,7 +12,7 @@ import { Container, Header, Button, Content, Form, Item, Picker, Input, Label, C
 
 import ScreenLoader from './ScreenLoader';
 
-
+const { width, height } = Dimensions.get('window');
 
 export default class ViewWeb extends Component {
 
@@ -74,25 +74,32 @@ export default class ViewWeb extends Component {
     const { link, title } = this.props;
 
     return (
-      <View style={{ flex: 1 }}>
-
-        <ScrollView  >
-
-          <View style={{}}>
-            <WebView
+        <ScrollView style={{flex: 1}}>
+          <WebView
               startInLoadingState={!loaded}
               onError={() => { this.showError() }}
               onLoadEnd={() => { this.setState({ loaderDisplay: 'none', WebViewDisplay: 'flex', loaded: true }) }}
               source={{ uri: link }}
-              style={{ marginTop: 20, height: 500 }}
-              // onNavigationStateChange = {navigator=>this._onWebPress({navigator})} 
+              style={{ marginTop: 20, height: height }}
+              // onNavigationStateChange = {navigator=>this._onWebPress({navigator})}
 
               // style={{ display: this.state.WebViewDisplay }}
               renderLoading={() => <ScreenLoader index={5} />}
-            />
-          </View>
+          />
+          {/*<View style={{flex: 1}}>*/}
+          {/*  <WebView*/}
+          {/*    startInLoadingState={!loaded}*/}
+          {/*    onError={() => { this.showError() }}*/}
+          {/*    onLoadEnd={() => { this.setState({ loaderDisplay: 'none', WebViewDisplay: 'flex', loaded: true }) }}*/}
+          {/*    source={{ uri: link }}*/}
+          {/*    style={{ marginTop: 20 }}*/}
+          {/*    // onNavigationStateChange = {navigator=>this._onWebPress({navigator})}*/}
+
+          {/*    // style={{ display: this.state.WebViewDisplay }}*/}
+          {/*    renderLoading={() => <ScreenLoader index={5} />}*/}
+          {/*  />*/}
+          {/*</View>*/}
         </ScrollView>
-      </View>
     );
   }
 }

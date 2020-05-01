@@ -27,13 +27,13 @@ const { width, height } = Dimensions.get('window');
 
 const App: () => React$Node = () => {
   return (
+    <SafeAreaView style={{flex: 1}}>
+          <H1 style={{ backgroundColor: 'green', alignSelf: 'center', width: width, color: 'white' }}>
+            Bosspiration
+          </H1>
+          <ViewWeb link={SERVER_DOMAIN} />
 
-    <>
-      <H1 style={{ backgroundColor: 'green', alignSelf: 'center', width: width, color: 'white' }}>
-        Bosspiration
-      </H1>
-      <ViewWeb link={SERVER_DOMAIN} />
-    </ >
+    </SafeAreaView>
 
   );
 };
