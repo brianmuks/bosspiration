@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "a": "npx react-native run-android",
-    "a2": "npx react-native start ",
+    "i": "npx react-native run-ios",
+    "s": "npx react-native start ",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
@@ -12,12 +13,13 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/netinfo": "^5.7.1",
+    "native-base": "^2.13.8",
     "react": "16.11.0",
     "react-native": "0.62.2",
-    "native-base": "^2.13.8",
+    "react-native-navigation": "^6.9.0",
     "react-native-spinkit": "^1.5.0",
-    "react-native-webview": "8.0.4",
-    "@react-native-community/netinfo": "^5.7.1"
+    "react-native-webview": "8.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
