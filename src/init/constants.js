@@ -20,7 +20,7 @@ export const TABS_IDS = {
         id: 'HOME_TAB_ID'
     },
     BOTTOM_TABS_LAYOUT: {
-        id: 'BOTTOM_TABS'
+        id: 'BOTTOM_TABS_LAYOUT'
     },
     AUTH_TAB_ID: {
         id: 'BOTTOM_TABS'

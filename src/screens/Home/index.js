@@ -13,7 +13,4 @@ function Home(params) {
 
 }
 
-
-
-
-export default Home;
+module.exports = Home;

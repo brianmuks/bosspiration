@@ -19,8 +19,31 @@ export default TABS = {
                     ],
                     options: {
                         bottomTab: {
-                            text: getWLang({ word: 'login' })
-                            // icon: require('./home.png')
+                            text: getWLang({ word: 'login' }),
+                            icon: require('../assets/images/logo.png'),
+
+                        }
+                    }
+                }
+            },
+            //HOME end
+            //HOME start
+            {
+                stack: {
+                    id: SCREENS.HOME.id,
+                    children: [
+                        {
+                            component: {
+                                id: SCREENS.HOME.id,
+                                name: SCREENS.HOME.name
+                            }
+                        }
+                    ],
+                    options: {
+                        bottomTab: {
+                            text: getWLang({ word: 'login' }),
+                            icon: require('../assets/images/logo.png'),
+
                         }
                     }
                 }
@@ -28,6 +51,10 @@ export default TABS = {
             //HOME end
 
         ],
+
+
+
+    // authTabs start
     authTabs: {
         stack: {
             children: [{
@@ -47,4 +74,6 @@ export default TABS = {
             }
         }
     }
+    // authTabs ends
+
 }

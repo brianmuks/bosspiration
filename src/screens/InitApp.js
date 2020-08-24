@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Text } from 'native-base';
 import { fetchLocalProfile } from '../db/actions';
-import { checkAuthStatus } from './Auth/Methods';
+import { checkAuthStatus } from './Auth/methods';
 import { goHome, gotoAuth } from '../layout/methods';
 
 function InitApp(params) {
@@ -11,8 +11,10 @@ function InitApp(params) {
         _checkAuthStatus({});
     }, [0])
 
-    const _checkAuthStatus = ({ }) => {
-        if (checkAuthStatus({})) {
+    const _checkAuthStatus = async ({ }) => {
+
+
+        if (await checkAuthStatus({})) {
             goHome({});
         } else {
             gotoAuth({})
