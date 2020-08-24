@@ -55,7 +55,7 @@ class NRC extends Component<Props> {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   onChangeText = (key, val) => {
     //update states so that they can be validated on submit. applies when updating profile
@@ -73,7 +73,7 @@ class NRC extends Component<Props> {
     ]);
   }
 
-  _uploadFiles({files}) {
+  _uploadFiles({ files }) {
     let counter = 0;
     const _id = Meteor.userId();
     for (const key in files) {
@@ -83,10 +83,10 @@ class NRC extends Component<Props> {
         label: files[key].label
       };
       console.warn(image.name);
-      
 
 
-      uploadFile({ image, _id, collection:COLLECTIONS.USERS })
+
+      uploadFile({ image, _id, collection: COLLECTIONS.USERS })
         .then(res => {
           const uploadedText = ++counter + "/" + Object.keys(files).length;
           this.setState({ uploadedText });
@@ -103,12 +103,12 @@ class NRC extends Component<Props> {
 
 
   submit() {
-            let files = {};
+    let files = {};
 
     for (let index = 0; index < NRC_FIELDS.length; index++) {
       const field = NRC_FIELDS[index];
       if (
-        !this.state[field.name] 
+        !this.state[field.name]
       ) {
         Alert.alert(`Sorry ${field.label} is required`);
         return;
@@ -125,9 +125,9 @@ class NRC extends Component<Props> {
     return;
 
     //upload files
-    this._uploadFiles({files});
+    this._uploadFiles({ files });
 
-  
+
   }
 
   _pickImage({ field }) {
@@ -197,7 +197,7 @@ class NRC extends Component<Props> {
   renderFileUploader({ field }) {
     console.log(this.state, "here");
     console.warn(this.state[field.name]);
-    
+
     return (
       <Body>
         <Button
@@ -280,7 +280,7 @@ class NRC extends Component<Props> {
             <Thumbnail
               style={styles.formAvartar}
               large
-              source={require("../../images/logo.png")}
+              source={require("../../assets/images/logo.png")}
             />
 
             <Form>

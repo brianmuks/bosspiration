@@ -5,7 +5,7 @@
 import React, { Component } from "react";
 import { Platform, StyleSheet, View, KeyboardAvoidingView } from "react-native";
 import Meteor, { withTracker } from "react-native-meteor";
-import {  VERIFICATION_FIELD } from "./constants";
+import { VERIFICATION_FIELD } from "./constants";
 import {
   Container,
   Button,
@@ -25,9 +25,9 @@ import {
 } from "native-base";
 
 import { Alert } from "react-native";
-import {  NO_INTERNET_MSG, APP_IS_BUSY_MSG, APP_PRIMARY_COLOR, APP_SECONDARY_COLOR } from "../../constants";
+import { NO_INTERNET_MSG, APP_IS_BUSY_MSG, APP_PRIMARY_COLOR, APP_SECONDARY_COLOR } from "../../constants";
 import styles from "./Styles";
-import {checkEmailVerification,checkPhoneNumberVerification} from './Methods';
+import { checkEmailVerification, checkPhoneNumberVerification } from './Methods';
 import { showMsg, validateEmail, getConnectionStatus } from "../../utils";
 import PhoneInput from 'react-native-phone-input';
 import APP_STYLES from '../../constants/Styles';
@@ -40,17 +40,17 @@ class VerificationForm extends Component<Props> {
     self = this;
     this.state = {
       email: null,
-      isWorking:false,
+      isWorking: false,
       phoneNumber: null,
       inputFields: props.fields || [],
       isShowVerificationScreen: false,
     };
   }
 
-  componentWillMount(){ 
-      const {verificationType} = this.props;
-      const fields = VERIFICATION_FIELD({type: verificationType});
-      this.setState({fields});
+  componentWillMount() {
+    const { verificationType } = this.props;
+    const fields = VERIFICATION_FIELD({ type: verificationType });
+    this.setState({ fields });
   }
 
   onChangeText = (key, txt) => {
@@ -72,15 +72,15 @@ class VerificationForm extends Component<Props> {
     }
 
     const phoneNumber = this.phone.getValue();
-    
+
     const countryCode = this.phone.getCountryCode();
     console.log(phoneNumber, countryCode, 'phoneNumber,countryCode');
-    this.setState({countryCode, phoneNumber});
+    this.setState({ countryCode, phoneNumber });
     return phoneNumber;
   }
 
   _sendVerificationCode() {
-    const {userName} = this.state;
+    const { userName } = this.state;
 
     if (validateEmail(userName)) {
       //send code to email
@@ -93,24 +93,24 @@ class VerificationForm extends Component<Props> {
   }
 
   submit() {
-    const {inputFields} = this.state;
+    const { inputFields } = this.state;
 
-    const {verificationType} = this.props;
-
-  
+    const { verificationType } = this.props;
 
 
-            const {isWorking} = this.state;
-        
-       if (isWorking) return showMsg(APP_IS_BUSY_MSG, 'warning',1000,'bottom');; 
+
+
+    const { isWorking } = this.state;
+
+    if (isWorking) return showMsg(APP_IS_BUSY_MSG, 'warning', 1000, 'bottom');;
 
 
     for (let index = 0; index < inputFields.length; index++) {
       const field = inputFields[index];
 
-         if (field.name == 'phoneNumber') {
-          continue;
-         }else if (
+      if (field.name == 'phoneNumber') {
+        continue;
+      } else if (
         !this.state[field.name] ||
         this.state[field.name].trim().length === 0
       ) {
@@ -125,98 +125,98 @@ class VerificationForm extends Component<Props> {
     }
     //TODO: determine if login is by email or phone
 
-      const {email} = this.state;
-      this.setState({isWorking: true});
+    const { email } = this.state;
+    this.setState({ isWorking: true });
 
-      
-      if (email && validateEmail(email)) {
-        const {onVerifyEmail} = this.props;
-        //check if email number exist on the system
-       
 
-        checkEmailVerification({email})
-          .then(data => {
-            this.setState({isWorking: false});
+    if (email && validateEmail(email)) {
+      const { onVerifyEmail } = this.props;
+      //check if email number exist on the system
 
-            if (data && data.isError) {
-              showMsg(`Error: ${data.reason}`, 'warning');
-              return;
-            } else if (data  == null) {
-              showMsg(
-                `Sorry no record found with this email  : ${email}`,
-                'warning',
-              );
-              return;
-              
-            }
 
-            const {onVerifyEmail} = this.props;
-            onVerifyEmail ? onVerifyEmail({email}) :
-              showMsg(`Sorry something went wrong: ${data.reason}`, 'warning');
-          })
-          .catch(err => {
-            console.log('checkEmailVerification():err', err);
-            this.setState({isWorking: false});
+      checkEmailVerification({ email })
+        .then(data => {
+          this.setState({ isWorking: false });
+
+          if (data && data.isError) {
+            showMsg(`Error: ${data.reason}`, 'warning');
+            return;
+          } else if (data == null) {
             showMsg(
-              `Sorry something went wrong : ${err.reason || ''}`,
+              `Sorry no record found with this email  : ${email}`,
               'warning',
             );
-          });
+            return;
 
-        //forward email to verification screen
+          }
 
+          const { onVerifyEmail } = this.props;
+          onVerifyEmail ? onVerifyEmail({ email }) :
+            showMsg(`Sorry something went wrong: ${data.reason}`, 'warning');
+        })
+        .catch(err => {
+          console.log('checkEmailVerification():err', err);
+          this.setState({ isWorking: false });
+          showMsg(
+            `Sorry something went wrong : ${err.reason || ''}`,
+            'warning',
+          );
+        });
+
+      //forward email to verification screen
+
+      return;
+    } else if (verificationType !== 'email') {
+      //validate phone number and forward to phone auth screen
+
+      const phoneNumber = this.setPhoneNumber();
+
+      if (!phoneNumber) {
         return;
-      } else if (verificationType !== 'email') {
-        //validate phone number and forward to phone auth screen
-
-        const phoneNumber = this.setPhoneNumber();
-
-        if (!phoneNumber) {
-          return;
-        }
-
-        //check if phone number exist on the system
-
-        checkPhoneNumberVerification({phoneNumber})
-          .then(data => {
-            this.setState({isWorking: false});
-
-            if (data && data.isError) {
-              showMsg(`Error: ${data.reason}`, 'warning');
-              return;
-            } else if (data && data.status === null) {
-              showMsg(
-                `Sorry no record found with this phone number : ${phoneNumber}`,
-                'warning',
-              );
-              return;
-            }
-
-            const {onVerifyPhone} = this.props;
-            onVerifyPhone
-              ? onVerifyPhone({phoneNumber})
-              : showMsg(
-                  `Sorry something went wrong: ${data.reason}`,
-                  'warning',
-                );
-          })
-          .catch(err => {
-            console.log('checkPhoneNumberVerification():err', err);
-
-            this.setState({isWorking: false});
-            showMsg(`Sorry something went wrong : ${err.reason}`, 'warning');
-          });
-      } else {
-        showMsg(`Sorry invalid input`, 'danger');
-        this.setState({isWorking: false});
       }
+
+      //check if phone number exist on the system
+
+      checkPhoneNumberVerification({ phoneNumber })
+        .then(data => {
+          this.setState({ isWorking: false });
+
+          if (data && data.isError) {
+            showMsg(`Error: ${data.reason}`, 'warning');
+            return;
+          } else if (data && data.status === null) {
+            showMsg(
+              `Sorry no record found with this phone number : ${phoneNumber}`,
+              'warning',
+            );
+            return;
+          }
+
+          const { onVerifyPhone } = this.props;
+          onVerifyPhone
+            ? onVerifyPhone({ phoneNumber })
+            : showMsg(
+              `Sorry something went wrong: ${data.reason}`,
+              'warning',
+            );
+        })
+        .catch(err => {
+          console.log('checkPhoneNumberVerification():err', err);
+
+          this.setState({ isWorking: false });
+          showMsg(`Sorry something went wrong : ${err.reason}`, 'warning');
+        });
+    } else {
+      showMsg(`Sorry invalid input`, 'danger');
+      this.setState({ isWorking: false });
+    }
   }
 
   renderPhoneInput() {
     return (
       <React.Fragment>
         <PhoneInput
-          textProps={{placeholder: `your phone number`}}
+          textProps={{ placeholder: `your phone number` }}
           style={styles.phoneInputWrapper}
           initialCountry={`zm`}
           offset={10}
@@ -224,7 +224,7 @@ class VerificationForm extends Component<Props> {
           textProps={{
             returnKeyType: 'done',
             placeholder: `Your phone number`,
-            onSubmitEditing: () => {},
+            onSubmitEditing: () => { },
           }}
           ref={ref => {
             this.phone = ref;
@@ -236,8 +236,8 @@ class VerificationForm extends Component<Props> {
   }
 
   renderFields() {
-    
-      const {fields} = this.state;
+
+    const { fields } = this.state;
 
     return fields.map((field, index) => (
       <ListItem key={index} style={styles.inputContainer}>
@@ -245,15 +245,15 @@ class VerificationForm extends Component<Props> {
           <Item style={styles.inputContainer} stackedLabel>
             <Label style={styles.fieldLabel}>{field.label}</Label>
             {(field.type === 'phoneNumber' &&
-              this.renderPhoneInput({field})) || (
-              <Input
-                // keyboardType={'phone-pad'}
-                style={styles.input}
-                placeholder={field.placeholder}
-                maxLength={30}
-                onChangeText={txt => this.onChangeText(field.name, txt)}
-              />
-            )}
+              this.renderPhoneInput({ field })) || (
+                <Input
+                  // keyboardType={'phone-pad'}
+                  style={styles.input}
+                  placeholder={field.placeholder}
+                  maxLength={30}
+                  onChangeText={txt => this.onChangeText(field.name, txt)}
+                />
+              )}
           </Item>
         </Body>
       </ListItem>
@@ -262,8 +262,8 @@ class VerificationForm extends Component<Props> {
 
   render() {
     const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 10;
-    const {verificationType} = this.props;
-    const {isWorking} = this.state;
+    const { verificationType } = this.props;
+    const { isWorking } = this.state;
 
     return (
       <KeyboardAvoidingView
@@ -278,11 +278,11 @@ class VerificationForm extends Component<Props> {
               <Thumbnail
                 style={styles.formAvartar}
                 large
-                source={require('../../images/logo.png')}
+                source={require('../../assets/images/logo.png')}
               />
 
               {/* <Text style={styles.loginText}>Login</Text> */}
-              {this.renderFields({verificationType})}
+              {this.renderFields({ verificationType })}
               <Button
                 disabled={isWorking}
                 style={[

@@ -58,7 +58,7 @@ class ForgotPassword extends Component<Props> {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   componentWillUnmount() {
     //  this.onTokenRefreshListener();
@@ -173,7 +173,7 @@ class ForgotPassword extends Component<Props> {
               <Thumbnail
                 style={styles.formAvartar}
                 large
-                source={require("../../images/logo.png")}
+                source={require("../../assets/images/logo.png")}
               />
 
               <Text style={styles.loginText}>Reset Password</Text>

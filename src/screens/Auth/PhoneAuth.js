@@ -2,10 +2,10 @@
  * @flow
  */
 
-import React, {Component} from 'react';
-import {Platform, Alert, View, KeyboardAvoidingView} from 'react-native';
-import Meteor, {withTracker} from 'react-native-meteor';
-import {LOGIN_FIELDS, PHONE_VERIFICATION_FIELDS} from './constants';
+import React, { Component } from 'react';
+import { Platform, Alert, View, KeyboardAvoidingView } from 'react-native';
+import Meteor, { withTracker } from 'react-native-meteor';
+import { LOGIN_FIELDS, PHONE_VERIFICATION_FIELDS } from './constants';
 import {
   Container,
   Header,
@@ -35,17 +35,17 @@ import {
   verifyPhonecode,
   updatePhoneNumberStatus,
 } from './Methods';
-import {saveData} from '../../state/preferences';
+import { saveData } from '../../state/preferences';
 import {
   USER_ID,
   IS_PHONE_NUMBER_VERIFIED,
   APP_PRIMARY_COLOR,
 } from '../../constants';
 import styles from './Styles';
-import {showMsg} from '../../utils';
+import { showMsg } from '../../utils';
 import PropTypes from 'prop-types'; // ES6
-import Appstyles, {keyboardVerticalOffset} from '../../constants/Styles';
-import auth,{firebase} from '@react-native-firebase/auth';
+import Appstyles, { keyboardVerticalOffset } from '../../constants/Styles';
+import auth, { firebase } from '@react-native-firebase/auth';
 import APP_STYLES from '../../constants/Styles';
 
 
@@ -70,13 +70,13 @@ class PhoneAuth extends Component<Props> {
     this._onAuthStateChanged();
   }
 
-  
+
 
   runClock() {
     this.interval = setInterval(() => {
       const timer = this.state.timer - 1;
 
-      timer > -1 && this.setState({timer});
+      timer > -1 && this.setState({ timer });
     }, 1000);
   }
 
@@ -84,9 +84,9 @@ class PhoneAuth extends Component<Props> {
 
     auth().onAuthStateChanged(user => {
       if (user) {
-        const {phoneNumber} = this.props;
-     
-        updatePhoneNumberStatus({phoneNumber, status: true})
+        const { phoneNumber } = this.props;
+
+        updatePhoneNumberStatus({ phoneNumber, status: true })
           .then(resp => {
             this.props.onActivated();
 
@@ -97,7 +97,7 @@ class PhoneAuth extends Component<Props> {
 
         return;
       } // user is verified and logged in
-      else{
+      else {
         this._sendVerificatinCode();
 
       }
@@ -119,47 +119,47 @@ class PhoneAuth extends Component<Props> {
   _sendVerificatinCode() {
     console.log(this.props.phoneNumber, 'this.props.phoneNumber');
 
-    const {phoneNumber, timer} = this.state;
+    const { phoneNumber, timer } = this.state;
 
     if (timer !== 0) {
       const msg = 'Please wait';
       return showMsg(msg, 'warning');
-    }else if (!phoneNumber){
-      return ;//
+    } else if (!phoneNumber) {
+      return;//
     }
 
-    
-            sendPhoneVerificationCode({phoneNumber})
-              .then(({confirmResult}) => {
-                const msg = 'Please wait for a verification code';
-                showMsg(msg);
 
-                this.setState({confirmResult, timer: 60});
-                this.runClock();
-              })
-              .catch(err => {
-                const msg = err.reason;
-                showMsg(msg);
-              });
+    sendPhoneVerificationCode({ phoneNumber })
+      .then(({ confirmResult }) => {
+        const msg = 'Please wait for a verification code';
+        showMsg(msg);
+
+        this.setState({ confirmResult, timer: 60 });
+        this.runClock();
+      })
+      .catch(err => {
+        const msg = err.reason;
+        showMsg(msg);
+      });
   }
 
   verifyPhoneCode() {
-    const {phoneCode, confirmResult, isWorking} = this.state;
-    const {phoneNumber, onActivated} = this.props;
+    const { phoneCode, confirmResult, isWorking } = this.state;
+    const { phoneNumber, onActivated } = this.props;
     if (isWorking) {
       return showMsg('Please wait');
     } else if (!phoneCode || !phoneCode > 0) {
       return;
     }
 
-    this.setState({isWorking: true});
-    verifyPhonecode({phoneCode, confirmResult, phoneNumber})
-      .then(({msg}) => {
+    this.setState({ isWorking: true });
+    verifyPhonecode({ phoneCode, confirmResult, phoneNumber })
+      .then(({ msg }) => {
         //Todo: save phonenumber
         saveData(IS_PHONE_NUMBER_VERIFIED, 'true'); //we are good to login
-        this.setState({isWorking: false});
+        this.setState({ isWorking: false });
         //update status on db to allow login
-        updatePhoneNumberStatus({phoneNumber, status: true})
+        updatePhoneNumberStatus({ phoneNumber, status: true })
           .then(resp => {
             //All good
           })
@@ -175,7 +175,7 @@ class PhoneAuth extends Component<Props> {
       })
       .catch(err => {
         console.log(err);
-        this.setState({isResendVerificationCode: true, isWorking: false});
+        this.setState({ isResendVerificationCode: true, isWorking: false });
         showMsg(err.reason, 'danger');
         return;
       });
@@ -200,9 +200,9 @@ class PhoneAuth extends Component<Props> {
   }
 
   render() {
-    const {phoneNumber} = this.props;
+    const { phoneNumber } = this.props;
 
-    const {timer, isWorking, phoneCode} = this.state;
+    const { timer, isWorking, phoneCode } = this.state;
     timer === 0 ? clearInterval(this.interval) : '';
 
     return (
@@ -217,7 +217,7 @@ class PhoneAuth extends Component<Props> {
               <Thumbnail
                 style={styles.formAvartar}
                 large
-                source={require('../../images/logo.png')}
+                source={require('../../assets/images/logo.png')}
               />
               <Form>
                 {this.renderVerificationForm()}
@@ -239,7 +239,7 @@ class PhoneAuth extends Component<Props> {
                     </Button>
                   </Item>
                 </Body>
-                <Text note style={{alignSelf: 'center'}}>
+                <Text note style={{ alignSelf: 'center' }}>
                   {`Phone Number: ${phoneNumber || 'NOT SET'}`}
                 </Text>
                 <Body>

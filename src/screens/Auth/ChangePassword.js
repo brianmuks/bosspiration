@@ -43,11 +43,11 @@ class ChangePassword extends Component<Props> {
       password: null,
       userName: null,
       isShowVerificationScreen: false,
-      isWorking:false,
+      isWorking: false,
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   componentWillUnmount() {
     //  this.onTokenRefreshListener();
@@ -85,33 +85,33 @@ class ChangePassword extends Component<Props> {
       }
     }
 
-    const {password,password2} = this.state;
+    const { password, password2 } = this.state;
 
-    if(!validatePassword({password,password2})) return;
+    if (!validatePassword({ password, password2 })) return;
 
-      if (!getConnectionStatus())
-        return showMsg("Sorry connection problem", "danger");
-      this.setState({ isWorking :true});
-      const {email} = this.props;
+    if (!getConnectionStatus())
+      return showMsg("Sorry connection problem", "danger");
+    this.setState({ isWorking: true });
+    const { email } = this.props;
 
-      changeUserPasswordByEmail({password,email})
-        .then(data => {
+    changeUserPasswordByEmail({ password, email })
+      .then(data => {
 
-             if (data && data.isError){
-      this.setState({ isWorking: false });
+        if (data && data.isError) {
+          this.setState({ isWorking: false });
 
-             return showMsg(`Sorry, ${data.reason}`, "danger");
-             }
-      this.setState({ isWorking: false });
-            //  showMsg('Password changed!')
-             this.props.showLoginScreen();
-        })
-        .catch(err => {
-          showMsg("Error: sorry something went wrong");
-      this.setState({ isWorking: false });
-          console.log("changeUserPasswordByEmail():err",err);
-        });
- 
+          return showMsg(`Sorry, ${data.reason}`, "danger");
+        }
+        this.setState({ isWorking: false });
+        //  showMsg('Password changed!')
+        this.props.showLoginScreen();
+      })
+      .catch(err => {
+        showMsg("Error: sorry something went wrong");
+        this.setState({ isWorking: false });
+        console.log("changeUserPasswordByEmail():err", err);
+      });
+
   }
 
   renderForm() {
@@ -140,7 +140,7 @@ class ChangePassword extends Component<Props> {
 
     const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 100;
 
-    const {isWorking} = this.state;
+    const { isWorking } = this.state;
     return (
       <KeyboardAvoidingView
         style={styles.keyboard}
@@ -152,7 +152,7 @@ class ChangePassword extends Component<Props> {
               <Thumbnail
                 style={styles.formAvartar}
                 large
-                source={require('../../images/logo.png')}
+                source={require('../../assets/images/logo.png')}
               />
               {isWorking && <Spinner color={APP_SECONDARY_COLOR} />}
 

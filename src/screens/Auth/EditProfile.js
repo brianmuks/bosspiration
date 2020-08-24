@@ -2,10 +2,10 @@
  * @flow
  */
 
-import React, {Component} from 'react';
-import {Platform, ImageBackground, View} from 'react-native';
-import Meteor, {withTracker} from 'react-native-meteor';
-import {FIELDS, EDIT_PROFILE_FIELDS} from './constants';
+import React, { Component } from 'react';
+import { Platform, ImageBackground, View } from 'react-native';
+import Meteor, { withTracker } from 'react-native-meteor';
+import { FIELDS, EDIT_PROFILE_FIELDS } from './constants';
 import {
   Container,
   Root,
@@ -27,13 +27,13 @@ import {
   Switch,
   Thumbnail,
 } from 'native-base';
-import {register, updateProfile, pickImage} from './Methods';
-import {Alert, KeyboardAvoidingView} from 'react-native';
-import {saveData} from '../../state/preferences';
-import {IS_ACCOUNT_CREATED, COLLECTIONS} from '../../constants';
+import { register, updateProfile, pickImage } from './Methods';
+import { Alert, KeyboardAvoidingView } from 'react-native';
+import { saveData } from '../../state/preferences';
+import { IS_ACCOUNT_CREATED, COLLECTIONS } from '../../constants';
 import styles from './Styles';
 import Login from './Login';
-import {showMsg} from '../../utils';
+import { showMsg } from '../../utils';
 import APP_STYLES from '../../constants/Styles';
 
 type Props = {};
@@ -59,7 +59,7 @@ class EditAccount extends Component<Props> {
   }
 
   UNSAFE_componentWillMount() {
-    const {user} = this.props;
+    const { user } = this.props;
     console.warn(user);
 
     user &&
@@ -69,7 +69,7 @@ class EditAccount extends Component<Props> {
       });
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   onChangeText = (key, txt) => {
     //update states so that they can be validated on submit. applies when updating profile
@@ -108,7 +108,7 @@ class EditAccount extends Component<Props> {
       null;
 
     (Object.keys(profile).length &&
-      updateProfile({profile, _id: this.props.userId, orgCode})
+      updateProfile({ profile, _id: this.props.userId, orgCode })
         .then(res => {
           if (res.isError) {
             Alert.alert('Sorry error occured ' + res.reason);
@@ -131,34 +131,34 @@ class EditAccount extends Component<Props> {
     this.updateProfile();
   }
 
-  getFieldValue({field, isDate}) {
+  getFieldValue({ field, isDate }) {
     return this.state[field.name];
   }
 
-  renderPickerOptions({options}) {
+  renderPickerOptions({ options }) {
     return options.map((option, index) => (
       <Picker.Item key={index} label={option.label} value={option.value} />
     ));
   }
 
-  renderPicker({field}) {
+  renderPicker({ field }) {
     return (
       <Picker
         note
         mode="dropdown"
-        style={{width: '70%'}}
-        selectedValue={this.getFieldValue({field})}
+        style={{ width: '70%' }}
+        selectedValue={this.getFieldValue({ field })}
         onValueChange={value => this.onChangeText(field.name, value)}>
         <Picker.Item label={'Select'} value={null} />
-        {this.renderPickerOptions({options: field.options})}
+        {this.renderPickerOptions({ options: field.options })}
       </Picker>
     );
   }
 
-  renderDatePicker({field}) {
+  renderDatePicker({ field }) {
     return (
       <DatePicker
-        defaultDate={new Date(this.getFieldValue({field, isDate}))}
+        defaultDate={new Date(this.getFieldValue({ field, isDate }))}
         minimumDate={new Date(1914, 6, 7)}
         maximumDate={new Date()}
         locale={'en'}
@@ -167,15 +167,15 @@ class EditAccount extends Component<Props> {
         animationType={'fade'}
         androidMode={'default'}
         placeHolderText="Select date"
-        textStyle={{color: 'green'}}
-        placeHolderTextStyle={{color: '#d3d3d3'}}
+        textStyle={{ color: 'green' }}
+        placeHolderTextStyle={{ color: '#d3d3d3' }}
         onDateChange={value => this.onChangeText(field.name, value)}
         disabled={false}
       />
     );
   }
 
-  _uploadFile({field}) {
+  _uploadFile({ field }) {
     pickImage()
       .then(image => {
         console.log(image.path, 'image');
@@ -190,14 +190,14 @@ class EditAccount extends Component<Props> {
       });
   }
 
-  renderFileUploader({field}) {
+  renderFileUploader({ field }) {
     console.log(this.state.photo);
 
     return (
       <Body>
         <Text
           style={styles.uploadText}
-          onPress={() => this._uploadFile({field})}>
+          onPress={() => this._uploadFile({ field })}>
           Upload
         </Text>
         <Thumbnail
@@ -223,9 +223,9 @@ class EditAccount extends Component<Props> {
         <Body>
           <Item stackedLabel>
             <Label style={styles.fieldLabel}>{field.label}</Label>
-            {(field.type === 'select' && this.renderPicker({field})) ||
-              (field.type === 'file' && this.renderFileUploader({field})) ||
-              (field.type === 'date' && this.renderDatePicker({field})) || (
+            {(field.type === 'select' && this.renderPicker({ field })) ||
+              (field.type === 'file' && this.renderFileUploader({ field })) ||
+              (field.type === 'date' && this.renderDatePicker({ field })) || (
                 <Input
                   style={APP_STYLES.input}
                   secureTextEntry={(field.type === 'password' && true) || false}
@@ -234,7 +234,7 @@ class EditAccount extends Component<Props> {
                   }
                   placeholder={''}
                   maxLength={100}
-                  value={this.getFieldValue({field})}
+                  value={this.getFieldValue({ field })}
                   onChangeText={txt => this.onChangeText(field.name, txt)}
                 />
               )}
@@ -245,7 +245,7 @@ class EditAccount extends Component<Props> {
   }
 
   showLoginScreen() {
-    this.setState({isLogin: true});
+    this.setState({ isLogin: true });
   }
 
   renderLogin() {
@@ -272,7 +272,7 @@ class EditAccount extends Component<Props> {
     const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 100;
 
     if (this.state.isLogin) {
-      return <Login onLogin={() => this.setState({isLogin: false})} />;
+      return <Login onLogin={() => this.setState({ isLogin: false })} />;
     }
 
     return (
@@ -289,7 +289,7 @@ class EditAccount extends Component<Props> {
                 <Thumbnail
                   style={styles.formAvartar}
                   large
-                  source={require('../../images/logo.png')}
+                  source={require('../../assets/images/logo.png')}
                 />
 
                 <Form>
@@ -317,6 +317,6 @@ export default withTracker(params => {
   Meteor.subscribe('users');
   const _id = params.userId;
   return {
-    user: Meteor.collection(COLLECTIONS.USERS).findOne({_id}),
+    user: Meteor.collection(COLLECTIONS.USERS).findOne({ _id }),
   };
 })(EditAccount);

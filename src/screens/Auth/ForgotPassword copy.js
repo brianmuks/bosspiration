@@ -5,7 +5,7 @@
 import React, { Component } from "react";
 import { Platform, StyleSheet, View, KeyboardAvoidingView } from "react-native";
 import Meteor, { withTracker } from "react-native-meteor";
-import {FORGOT_PASSWORD_FIELDS, VERIFY_CODE_FIELDS } from "./constants";
+import { FORGOT_PASSWORD_FIELDS, VERIFY_CODE_FIELDS } from "./constants";
 import {
   Container,
   Header,
@@ -63,7 +63,7 @@ class ForgotPassword extends Component<Props> {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   componentWillUnmount() {
     //  this.onTokenRefreshListener();
@@ -116,7 +116,7 @@ class ForgotPassword extends Component<Props> {
         if (data && data.isError) {
           return showMsg(`Sorry, ${data.msg}`, "danger");
         } else if (data === 0) {
-          this.setState({ isResend: true  });
+          this.setState({ isResend: true });
           return showMsg(`Sorry, code is invalid or has expired`, "danger");
         }
 
@@ -173,7 +173,7 @@ class ForgotPassword extends Component<Props> {
           return showMsg(`Sorry, ${data.msg}`, "danger");
 
         showMsg("Please check your email for the reset code");
-        this.setState({ isCodeSent: true,email:'', isResend: false });
+        this.setState({ isCodeSent: true, email: '', isResend: false });
       })
 
       .catch(err => {
@@ -193,8 +193,8 @@ class ForgotPassword extends Component<Props> {
         <Body key={index}>
           <Item style={styles.inputContainer} stackedLabel>
             <Label style={styles.fieldLabel}>{field.label}</Label>
-            {(field.type === 'select' && this.renderPicker({field})) ||
-              (field.type === 'date' && this.renderDatePicker({field})) || (
+            {(field.type === 'select' && this.renderPicker({ field })) ||
+              (field.type === 'date' && this.renderDatePicker({ field })) || (
                 <Input
                   style={APP_STYLES.input}
                   secureTextEntry={(field.type === 'password' && true) || false}
@@ -227,7 +227,7 @@ class ForgotPassword extends Component<Props> {
               <Thumbnail
                 style={styles.formAvartar}
                 large
-                source={require('../../images/logo.png')}
+                source={require('../../assets/images/logo.png')}
               />
               {isWorking && <Spinner color={APP_SECONDARY_COLOR} />}
 
@@ -244,7 +244,7 @@ class ForgotPassword extends Component<Props> {
               </Button>
               <Text
                 style={styles.createAccTxt}
-                onPress={() => this.submit({isResend: true})}>
+                onPress={() => this.submit({ isResend: true })}>
                 Resend Code
               </Text>
 
@@ -267,8 +267,8 @@ class ForgotPassword extends Component<Props> {
               </Row>
             </Root>
           </Content>
-      </Container>
-        </KeyboardAvoidingView>
+        </Container>
+      </KeyboardAvoidingView>
     );
   }
 }

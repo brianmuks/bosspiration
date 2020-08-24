@@ -19,7 +19,8 @@
     "react-native": "0.62.2",
     "react-native-navigation": "^6.9.0",
     "react-native-spinkit": "^1.5.0",
-    "react-native-webview": "8.0.4"
+    "react-native-webview": "8.0.4",
+    "realm": "^6.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
