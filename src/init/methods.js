@@ -1,8 +1,8 @@
 // import React from 'react';
 import Root from './Root';
 import {Navigation} from 'react-native-navigation';
-// import AppWrapper from './AppWrapper';
+import Layout from '../layout';
 
 export const _registerComponent = ({screen, App}) => {
-  Navigation.registerComponent(screen, (props) => Root(App, props));
+  Navigation.registerComponent(screen, (props) => Layout(App, props));
 };

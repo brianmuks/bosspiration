@@ -5,8 +5,6 @@ import InitApp from '../screens/InitApp';
 import AuthApp from '../screens/Auth';
 import HomeApp from '../screens/Home';
 
-// Register Imported components as screens
-
 _registerComponent({screen: SCREENS.INIT.name, App: InitApp});
 _registerComponent({screen: SCREENS.AUTH.name, App: AuthApp});
 _registerComponent({screen: SCREENS.HOME.name, App: HomeApp});
