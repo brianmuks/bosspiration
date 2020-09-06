@@ -1,11 +1,12 @@
-import { Navigation } from 'react-native-navigation';
-
 // Import components before registering
-import { SCREENS } from './constants';
-
-
+import {SCREENS} from './constants';
+import {_registerComponent} from './methods';
+import InitApp from '../screens/InitApp';
+import AuthApp from '../screens/Auth';
+import HomeApp from '../screens/Home';
 
 // Register Imported components as screens
-Navigation.registerComponent(SCREENS.INIT.name, () => require('../screens/InitApp'));
-Navigation.registerComponent(SCREENS.AUTH.name, () => require('../screens/Auth'));
-Navigation.registerComponent(SCREENS.HOME.name, () => require('../screens/Home'));
+
+_registerComponent({screen: SCREENS.INIT.name, App: InitApp});
+_registerComponent({screen: SCREENS.AUTH.name, App: AuthApp});
+_registerComponent({screen: SCREENS.HOME.name, App: HomeApp});

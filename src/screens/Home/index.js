@@ -1,16 +1,8 @@
+import React, {useEffect} from 'react';
+import {H1} from 'native-base';
 
-
-import React, { useEffect } from 'react';
-import { H1 } from 'native-base';
-
-
-
-function Home(params) {
-
-    return <H1>
-        Home
-    </H1>
-
+function HomeApp(params) {
+  return <H1>Home</H1>;
 }
 
-module.exports = Home;
+export default HomeApp;

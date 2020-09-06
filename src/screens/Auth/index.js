@@ -1,12 +1,15 @@
-import React from 'react'
-import { H1 } from 'native-base'
+import React, {useEffect} from 'react';
+import {H1} from 'native-base';
+import {showErrMsg} from '../../utils';
 
-function Auth() {
+function AuthApp() {
+  useEffect(() => {
+    showErrMsg({});
+  });
 
-
-  return <H1>aut h </H1>
-
-
+  return <H1>aut h </H1>;
 }
 
-module.exports = Auth;
+export default AuthApp;
+
+// module.exports = AuthApp;

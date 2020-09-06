@@ -5509,6 +5509,11 @@ react-native-spinkit@^1.5.0:
   dependencies:
     prop-types "^15.5.8"
 
+react-native-toast-message@^1.3.2:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/react-native-toast-message/-/react-native-toast-message-1.3.2.tgz#70b4e6832798ec7d76e1f7077bca9f35efb39518"
+  integrity sha512-Lxw2HMJ8OxaSI6mRni1L+vCwfsbqzwIT2PEN5yvdHj4xMRQdy2kRMQP6fZWcw3MPOj92z0iZ7hQc/T9cg5Zxog==
+
 react-native-vector-icons@^6.6.0:
   version "6.6.0"
   resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-6.6.0.tgz#66cf004918eb05d90778d64bd42077c1800d481b"

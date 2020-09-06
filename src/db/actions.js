@@ -44,13 +44,20 @@ export const saveLocalProfile = ({ data }) => {
 
 //fetch
 
-export const fetchLocalProfile = ({ }) => {
+
+/**fetch for the offline user profile
+ * 
+ * @param {isgetData} if true returns user profile as stored on disk
+ * 
+ * @returns promise which resolve to true/data if user is logged in else false;
+ */
+export const fetchLocalProfile = ({ isgetData }) => {
     return new Promise((resolve, reject) => {
 
         Realm.open(USER_PROFILE_SCHEMA).then(realm => {
 
             let data = realm.objects(SCHEMA_NAMES.USER_PROFILE);
-            data = data.length ? data[0] : null;
+            data = data.length ? (isgetData ? data[0] : true) : false;
             resolve(data);
 
             // NOTE: when we use realm.close();  data is not being resolved

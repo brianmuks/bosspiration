@@ -7,7 +7,4 @@ import { fetchLocalProfile } from "../../db/actions";
 
 
 
-export const checkAuthStatus = async ({ }) => {
-    return await fetchLocalProfile({});
-
-};
+export const checkAuthStatus = () => fetchLocalProfile({ isgetData: false })
